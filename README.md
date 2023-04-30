@@ -2,7 +2,7 @@
 
 ### Group Members:
 1. Seth Ng - 1067992
-2. Wong Li Sean - 1074679
+2. Li Sean Wong - 1074679
 3. Jason Mack -
 4. Chayanit Jaroonsophonsak -
 5. Lu Chen -
