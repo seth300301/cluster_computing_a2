@@ -7,6 +7,12 @@
 4. Chayanit Jaroonsophonsak - 1025399
 5. Lu Chen - 1238973
 
+### Topics of Interest:
+1. Trends in Australian Tweets and Toots
+2. Dogs
+3. Inflation and Rising Prices
+4. Public Opinion Towards LGBTIQA+
+
 ### Useful Links:
 1. [Melbourne Research Cloud](https://dashboard.cloud.unimelb.edu.au/project/)
 2. [Melbourne Research Cloud Guide](https://docs.cloud.unimelb.edu.au/)
