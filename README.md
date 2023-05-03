@@ -10,9 +10,11 @@
 ### Topics of Interest:
 1. Trends in Australian Tweets and Toots
 2. Dogs
-3. Inflation and Rising Prices
-- Petrol prices
-- 
+3. Inflation, Rising Prices, and Scarcity
+- What do people complain about in terms of price according to location?
+- Which areas/suburbs have users that experience high rises in rent?
+- What kind of items have had a shortages?
+- Who do people blame for high prices?
 4. Public Opinion Towards LGBTIQA+
 
 ### Useful Links:
