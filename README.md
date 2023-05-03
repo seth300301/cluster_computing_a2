@@ -11,6 +11,8 @@
 1. Trends in Australian Tweets and Toots
 2. Dogs
 3. Inflation and Rising Prices
+- Petrol prices
+- 
 4. Public Opinion Towards LGBTIQA+
 
 ### Useful Links:
