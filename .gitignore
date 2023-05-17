@@ -1,0 +1,32 @@
+.DS_Store
+data/
+code
+hashtags_only.py
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Dashboard/node_modules
+Dashboard/.pnp
+Dashboard/.pnp.js
+
+# testing
+Dashboard/coverage
+
+# production
+Dashboard/build
+Dashboard/out
+Dashboard/.next
+
+# misc
+Dashboard/.eslintcache
+Dashboard/.idea
+Dashboard/.env
+Dashboard/.env.local
+Dashboard/.env.development.local
+Dashboard/.env.test.local
+Dashboard/.env.production.local
+
+Dashboard/npm-debug.log*
+Dashboard/yarn-debug.log*
+Dashboard/yarn-error.log*
