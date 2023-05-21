@@ -76,12 +76,12 @@ if __name__ == '__main__':
     with open('./config.yaml', 'r') as f:
         config = yaml.safe_load(f)
 
-    server_url = config['Settings']['server_url']
-    access_token = config['Settings']['access_token']
+    server_url = config['server_url']
+    access_token = config['access_token']
 
-    couch_username = config['Settings']['couch_username']
-    couch_password = config['Settings']['couch_password']
-    ip = config['Settings']['ip']
+    couch_username = config['couch_username']
+    couch_password = config['couch_password']
+    ip = config['ip']
     couch_server = f"http://{couch_username}:{couch_password}@{ip}:5984/"
 
     couch = couchdb.Server(couch_server)
