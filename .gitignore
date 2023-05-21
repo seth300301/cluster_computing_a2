@@ -9,6 +9,7 @@ hashtags_only.py
 dashboard/node_modules
 dashboard/.pnp
 dashboard/.pnp.js
+dashboard/venv
 
 # testing
 dashboard/coverage
