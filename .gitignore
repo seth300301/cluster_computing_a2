@@ -1,7 +1,6 @@
 .DS_Store
 data/
-code
-hashtags_only.py
+code/
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
