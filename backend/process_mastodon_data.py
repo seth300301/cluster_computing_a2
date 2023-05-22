@@ -61,8 +61,8 @@ def process_mastodon():
             doc = nlp(word)
             if any(token.pos_ == "NOUN" for token in doc):
                 nouns.append((word, freq))
-    else:
-        break
+        else:
+            break
 
 
     # Remove irrelevant words
