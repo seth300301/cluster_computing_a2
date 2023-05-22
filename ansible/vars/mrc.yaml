@@ -44,10 +44,12 @@ security_groups:
 
 
 # Instance
-instances:
+couchdb_instances:
   - name: jason-test
   # - name: master
   #   volumes: ["main-volume"]
   # - name: child1
   # - name: child2
-  # - name: webserver
+
+web_instances:
+  - name: webserver
