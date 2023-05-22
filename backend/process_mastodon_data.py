@@ -54,10 +54,15 @@ def process_mastodon():
 
     # extract only Noun words
     nouns = []
+    i = 0
     for word, freq in rank_tokens:
-        doc = nlp(word)
-        if any(token.pos_ == "NOUN" for token in doc):
-            nouns.append((word, freq))
+        i += 1
+        if i < 500:
+            doc = nlp(word)
+            if any(token.pos_ == "NOUN" for token in doc):
+                nouns.append((word, freq))
+    else:
+        break
 
 
     # Remove irrelevant words
