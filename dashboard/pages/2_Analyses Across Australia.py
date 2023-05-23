@@ -1,9 +1,4 @@
-import datetime
-import os
-import pathlib
 import requests
-import zipfile
-import couchdb
 import pandas as pd
 import pydeck as pdk
 import geopandas as gpd
@@ -11,12 +6,15 @@ import streamlit as st
 import leafmap.colormaps as cm
 from leafmap.common import hex_to_rgb
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Analyses Across Australia",
+    layout="wide",
+)
 
 # @st.cache_data
 def initialise_data():
-    COUCHDB_SERVER='http://admin:password@172.26.136.171:5984/'
-    server = couchdb.Server(COUCHDB_SERVER)
+    # COUCHDB_SERVER='http://admin:password@172.26.136.171:5984/'
+    # server = couchdb.Server(COUCHDB_SERVER)
 
     gdf = gpd.read_file("dashboard/data/states.geojson")
     english = pd.DataFrame(requests.get('http://localhost:8000/english_view').json())

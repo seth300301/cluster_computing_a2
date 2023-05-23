@@ -31,7 +31,7 @@ class Listener(StreamListener):
     def __init__(self, couch):
         super().__init__()
         self.couch = couch
-        self.db = couch['hashtags']
+        self.db = couch['hashtags_mastodon']
 
     def on_update(self, toot):
         hash_toot = extract_hashtags(toot)

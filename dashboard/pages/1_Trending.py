@@ -11,7 +11,7 @@ import requests
 # hash_db = server['hashtags']
 
 st.set_page_config(
-    page_title="Home | Overview",
+    page_title="Trends in Tweets and Toots",
     layout="wide",
 )
 

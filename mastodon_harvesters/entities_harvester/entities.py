@@ -93,7 +93,7 @@ class Listener(StreamListener):
     def __init__(self, couch):
         super().__init__()
         self.couch = couch
-        self.db = couch['entities']
+        self.db = couch['entities_mastodon']
 
     def on_update(self, toot):
         ent_toot = extract_entities(toot)
@@ -130,9 +130,9 @@ if __name__ == '__main__':
         config = yaml.safe_load(f)
 
     # servers = [(f'https://mastodon.social', 'IEWFcZxezj2y-ihvxgfpGqwRyeWSs9xPyVWE3SA069E'),
-    #            (f'https://aus.social', 'z7vRVVkxu0hmQBuwTHni1GDiAIhDHUwLscCn6qWtISg'),
-    #            (f'https://mastodon.au','6-0d4gKufAHdv8BCCZ3-W4xtWqrRYMz8T9LQv2Po7po'),
-    #            (f'https://tictoc.social', '85MJprenneSpkiqGYQtHayL_xGLtOHeL2wMfln6Au-8')]
+    #            (f'https://aus.social', 'z7vRVVkxu0hmQBuwTHni1GDiAIhDHUwLscCn6qWtISg'), meister
+    #            (f'https://mastodon.au','6-0d4gKufAHdv8BCCZ3-W4xtWqrRYMz8T9LQv2Po7po'), child2
+    #            (f'https://tictoc.social', '85MJprenneSpkiqGYQtHayL_xGLtOHeL2wMfln6Au-8')] child1
 
     server_url = config['server_url']
     access_token = config['access_token']
