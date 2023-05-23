@@ -4,7 +4,31 @@ COUCHDB_SERVER='http://admin:password@172.26.136.171:5984/'
 server = couchdb.Server(COUCHDB_SERVER)
 
 def entities_toots():
-    toots = server['entities_mastodon'].view()
+    toots = server['entities_mastodon'].view('filter/entities_toots', group=True)
+    data_list = []
+
+    for row in toots:
+        entity = row['key'][0]
+        entity_type = row['key'][1]
+        count = row['value']
+        data = {'Entity': entity, 'Entity Type': entity_type, 'Number of Tweets': count}
+
+        data_list.append(data)
+
+    return data_list
+
+def hashtags_toots():
+    toots = server['hashtags_mastodon'].view('filter/hashtags_toots', group=True)
+    data_list = []
+
+    for row in toots:
+        hashtag = row['key']
+        count = row['value']
+        data = {'Hashtag': hashtag, 'Number of Tweets': count}
+
+        data_list.append(data)
+
+    return data_list
 
 def english_view():
     english_view = server['english_tweets'].view('filter/english_view', reduce=False)

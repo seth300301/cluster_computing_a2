@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import uvicorn
 
 from process_mastodon_data import process_mastodon
-from views import english_view, foreigner_view, income_view, mentalhealth_view, sentiment_view, weekly_rent, rent_tweets, tweet_shortages
+from views import english_view, foreigner_view, income_view, mentalhealth_view, sentiment_view, weekly_rent, rent_tweets, tweet_shortages, entities_toots, hashtags_toots
 
 app = FastAPI()
 
@@ -10,25 +10,21 @@ app = FastAPI()
 async def root():
     return {"message": "Hello World"}
 
-@app.get("/mastodon_wordcloud")
-async def mastodon_wordcloud():
-    final_words = process_mastodon()
-    return final_words
+@app.get("/mastodon_entities")
+async def mastodon_entities():
+    return entities_toots()
+
+@app.get("/mastodon_hashtags")
+async def mastodon_hashtags():
+    return hashtags_toots()
 
 @app.get("/mastodon_wordcloud")
 async def mastodon_wordcloud():
-    final_words = process_mastodon()
-    return final_words
-
-@app.get("/mastodon_wordcloud")
-async def mastodon_wordcloud():
-    final_words = process_mastodon()
-    return final_words
+    return process_mastodon()
 
 @app.get("/twitter_wordcloud")
 async def twitter_wordcloud():
-    final_words = tweet_shortages()
-    return final_words
+    return tweet_shortages()
 
 @app.get("/english_view")
 async def english():
