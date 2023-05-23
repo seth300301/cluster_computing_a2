@@ -24,9 +24,9 @@ entities['Entity'] = entities['Entity'] + " " + entities['Entity Type']
 
 figs = []
 
-ent_fig = px.bar(pd.DataFrame(entities.head(101)[1:]), x="Entity", y="Number of Tweets")
+ent_fig = px.bar(pd.DataFrame(entities.head(101)[1:]), x="Entity", y="Number of Tweets", title="#2 - 100 Entities Tweeted")
 figs.append(ent_fig)
-hash_fig = px.bar(pd.DataFrame(hashtags.head(101)[1:]), x="Hashtag", y="Number of Tweets")
+hash_fig = px.bar(pd.DataFrame(hashtags.head(101)[1:]), x="Hashtag", y="Number of Tweets", title="#2 - 100 Hashtags Tweeted")
 figs.append(hash_fig)
 
 for fig in figs:

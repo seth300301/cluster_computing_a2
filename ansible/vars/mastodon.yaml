@@ -9,4 +9,4 @@ mastodon_servers:
 
 # git repository settings
 repo_url: https://github.com/seth300301/cluster_computing_a2.git
-mastodon_directory: ~/cluster_computing_a2/harvester
+mastodon_directory: ~/cluster_computing_a2

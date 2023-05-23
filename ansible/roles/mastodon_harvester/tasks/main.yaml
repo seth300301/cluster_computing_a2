@@ -1,29 +1,45 @@
 ---
-- name: Clone repository
-  git:
-    repo: "{{ repo_url }}"
-    dest: /path/to/destination
+# - name: Clone repository
+#   git:
+#     repo: "{{ repo_url }}"
+#     dest: /path/to/destination
 
-- name: Move into harvester directory
-  become: true
-  shell: cd {{ mastodon_directory }}
+# - name: Move into harvester directory
+#   become: true
+#   shell: cd {{ mastodon_directory }}
 
-- name: Create config.yaml file
-  blockinfile:
-    path: ./config.yaml
-    block: |
-      couch_username: "{{ couchdb_username }}"
-      couch_password: "{{ couchdb_password }}"
-      ip: "{{ ansible_hostname }}"
-      server_url: "{{ mastodon_servers[hostvars[current_host].index|int].url }}"
-      access_token: "{{ mastodon_servers[hostvars[current_host].index|int].api_key }}"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK"
-    create: yes
+# - name: Create config.yaml file
+#   blockinfile:
+#     path: ./config.yaml
+#     block: |
+#       couch_username: "{{ couchdb_username }}"
+#       couch_password: "{{ couchdb_password }}"
+#       ip: "{{ ansible_hostname }}"
+#       server_url: "{{ mastodon_servers[hostvars[current_host].index|int].url }}"
+#       access_token: "{{ mastodon_servers[hostvars[current_host].index|int].api_key }}"
+#     marker: "# {mark} ANSIBLE MANAGED BLOCK"
+#     create: yes
 
-- name: Build Docker container
-  become: true
-  shell: docker build -t your_image_name .
+# - name: Build Docker container
+#   become: true
+#   shell: docker build -t your_image_name .
 
-- name: Run Docker container
-  become: true
-  shell: docker run -d your_image_name
+# - name: Run Docker container
+#   become: true
+#   shell: docker run -d your_image_name
+
+- name: pass git key to server
+  copy: 
+    src=id_rsa
+    dest=/home/ubuntu/.ssh/git_key 
+    owner=ubuntu 
+    mode=0644 
+    force=no
+    
+- name: clone repo
+  git: 
+    repo=git@github.com:seth300301/cluster_computing_a2.git
+    dest=~/cluster_computing_a2
+    clone=yes
+    accept_hostkey=yes
+    key_file=/home/ubuntu/.ssh/git_key
