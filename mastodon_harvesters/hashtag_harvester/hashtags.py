@@ -1,7 +1,7 @@
 from mastodon import Mastodon, StreamListener
-import re
 import couchdb
 import threading
+import yaml
 from bs4 import BeautifulSoup
 
 
@@ -17,14 +17,13 @@ def extract_hashtags(toot):
         string_list = filtered_string.split()
         for word in string_list:
             if (word[0] == '#'):
-                hashtag_list.append(word[1:].lower())
+                hashtag_list.add(word[1:].lower())
 
     if (hashtag_list):
-        toot_with_key = {"created_at": created_at, "has_hashtag": True, "hashtags": hashtag_list}
+        toot_with_key = {"created_at": created_at, "hashtags": list(hashtag_list)}
+        return toot_with_key
     else:
-        toot_with_key = {"created_at": created_at, "has_hashtag": False, "hashtags": None}
-    
-    return toot_with_key
+        return
 
 
 class Listener(StreamListener):
@@ -35,8 +34,8 @@ class Listener(StreamListener):
 
     def on_update(self, toot):
         hash_toot = extract_hashtags(toot)
-        #if hash_toot != None:
-        self.db.save(hash_toot)
+        if hash_toot != None:
+            self.db.save(hash_toot)
         print("A new data entry is saved")
 
     def on_abort(self, err):
@@ -64,24 +63,30 @@ class TootThread(threading.Thread):
 
 
 if __name__ == '__main__':
+    with open('./config.yaml', 'r') as f:
+        config = yaml.safe_load(f)
 
-    servers = [(f'https://mastodon.social', 'IEWFcZxezj2y-ihvxgfpGqwRyeWSs9xPyVWE3SA069E'),
-               (f'https://aus.social', 'z7vRVVkxu0hmQBuwTHni1GDiAIhDHUwLscCn6qWtISg'),
-               (f'https://mastodon.au','6-0d4gKufAHdv8BCCZ3-W4xtWqrRYMz8T9LQv2Po7po'),
-               (f'https://tictoc.social', '85MJprenneSpkiqGYQtHayL_xGLtOHeL2wMfln6Au-8')]
+    # servers = [(f'https://mastodon.social', 'IEWFcZxezj2y-ihvxgfpGqwRyeWSs9xPyVWE3SA069E'),
+    #            (f'https://aus.social', 'z7vRVVkxu0hmQBuwTHni1GDiAIhDHUwLscCn6qWtISg'), meister
+    #            (f'https://mastodon.au','6-0d4gKufAHdv8BCCZ3-W4xtWqrRYMz8T9LQv2Po7po'), child2
+    #            (f'https://tictoc.social', '85MJprenneSpkiqGYQtHayL_xGLtOHeL2wMfln6Au-8')] child1
 
-    couch = couchdb.Server('http://admin:300301@127.0.0.1:5984/')
+    server_url = config['server_url']
+    access_token = config['access_token']
 
-    # Create a thread for each server to retrieve toots
-    threads = []
-    for server in servers:
-        thread = TootThread(*server, couch)
-        threads.append(thread)
+    couch_username = config['couch_username']
+    couch_password = config['couch_password']
+    ip = config['ip']
+    couch_server = f"http://{couch_username}:{couch_password}@{ip}:5984/"
 
-    # Start all threads
-    for thread in threads:
-        thread.start()
+    couch = couchdb.Server(couch_server)
+    listener = Listener(couch)
 
-    # Wait for all threads to complete
-    for thread in threads:
-        thread.join()
+    print("Connecting to Mastodon server: " + server_url)
+    m = Mastodon(api_base_url=server_url, access_token=access_token)
+
+    print("Start harvesting from " + server_url)
+    try:
+        stream = m.stream_local(listener=listener, timeout=3600, reconnect_async=True)
+    except:
+        print("An error occurred while connecting to " + server_url)

@@ -45,9 +45,9 @@ def app():
 
         figs = []
 
-        tweet_fig = px.bar(pd.DataFrame(shortage_tweets.head(50)), x=shortage_tweets.index, y="Number of Tweets")
+        tweet_fig = px.bar(pd.DataFrame(shortage_tweets), x=shortage_tweets.index, y="Number of Tweets")
         figs.append(tweet_fig)
-        toot_fig = px.bar(pd.DataFrame(shortage_toots.head(50)), x=shortage_toots.index, y="Number of Tweets")
+        toot_fig = px.bar(pd.DataFrame(shortage_toots), x=shortage_toots.index, y="Number of Tweets")
         figs.append(toot_fig)
 
         for fig in figs:
