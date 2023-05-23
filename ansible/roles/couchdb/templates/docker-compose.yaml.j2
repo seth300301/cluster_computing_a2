@@ -1,0 +1,21 @@
+version: '3'
+services:
+  couchserver:
+    image: "couchdb"
+    restart: always
+    ports:
+      - "5984:5984"
+      - "5986:5986"
+      - "4369:4369"
+      - "9100-9200:9100-9200"
+    environment:
+      - COUCHDB_USER={{ couch.username }}
+      - COUCHDB_PASSWORD= {{ couch.password }}
+      # - COUCHDB_DATABASES=_replicator,_users,_global_changes
+      - NODENAME= {{ ansible_host }}
+      # - COUCHDB_SECRET= {{ couch.secret }}
+      - ERL_FLAGS="-setcookie \"{{ couch.cookie }}\" -name \"couchdb@{{ ansible_host }}\""\
+    volumes:
+      - ./dbdata:/opt/couchdb/data
+    # command: "-setcookie {{ couch.cookie }}"
+    container_name: couchdb

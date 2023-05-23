@@ -1,0 +1,28 @@
+# # create cloud instances
+# - hosts: localhost
+#   vars_files:
+#     - vars/mrc.yaml
+#   gather_facts: true
+
+#   roles:
+#     - role: openstack-common
+# #     - role: openstack-volume
+#     - role: openstack-security-group
+#     - role: openstack-instance
+
+# set up couchdb/mastodon servers
+- hosts: couchdb_instances
+  vars_files:
+    - vars/couchdb.yaml
+    - vars/mastodon.yaml
+  gather_facts: true
+
+  roles:
+    - role: common
+    - role: docker
+    # - role: mastodon_harvester
+    - role: couchdb
+    # - role: couch_cluster
+
+
+# set up webserver

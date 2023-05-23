@@ -1,0 +1,24 @@
+---
+
+- name: Create directory for couchdb
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/couchdb"
+    state: directory
+
+- name: copy template vm.args file
+  become: true
+  ansible.builtin.template:
+    src: templates/vm.args.j2
+    dest: "{{ ansible_env.HOME }}/couchdb/vm.args"
+
+- name: copy template docker-compose file
+  become: true
+  ansible.builtin.template:
+    src: templates/docker-compose.yaml.j2
+    dest: "{{ ansible_env.HOME }}/couchdb/docker-compose.yaml"
+
+- name: Run docker-compose
+  become: true
+  ansible.builtin.command:
+    cmd: docker-compose up -d
+    chdir: ./couchdb

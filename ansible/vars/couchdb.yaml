@@ -1,5 +1,6 @@
 # couchdb config settings
-couchdb_username: admin
-couchdb_password: password
-couchdb_secret: group83
-couchdb_cookie: group83
+couch:
+  username: admin
+  password: password
+  secret: group83
+  cookie: group83
