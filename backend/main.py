@@ -15,6 +15,16 @@ async def mastodon_wordcloud():
     final_words = process_mastodon()
     return final_words
 
+@app.get("/mastodon_wordcloud")
+async def mastodon_wordcloud():
+    final_words = process_mastodon()
+    return final_words
+
+@app.get("/mastodon_wordcloud")
+async def mastodon_wordcloud():
+    final_words = process_mastodon()
+    return final_words
+
 @app.get("/twitter_wordcloud")
 async def twitter_wordcloud():
     final_words = tweet_shortages()

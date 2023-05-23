@@ -4,9 +4,6 @@ import numpy as np
 import plotly.express as px
 import altair as alt
 import requests
-import couchdb
-import matplotlib
-import wordcloud
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
@@ -15,9 +12,15 @@ st.set_page_config(
     layout="wide",
 )
 
-def app():
+@st.cache
+def initialise_data():
     shortage_tweets = requests.get('http://localhost:8000/twitter_wordcloud').json()
     shortage_toots = requests.get('http://localhost:8000/mastodon_wordcloud').json()
+
+    return shortage_tweets, shortage_toots
+
+def main():
+    shortage_tweets, shortage_toots = initialise_data()
 
     st.write("# Words Relating Shortages in Australia")
     graph_type = st.radio('Show as:',("Bar Chart", "Word Cloud"))
@@ -60,4 +63,5 @@ def app():
         st.write("### Shortage Words from Toots")
         st.plotly_chart(figs[1], use_container_width=True)
 
-app()
+if __name__ == '__main__':
+    main()

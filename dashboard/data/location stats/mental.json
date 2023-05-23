@@ -1,0 +1,32 @@
+{
+  "Queensland": {
+    "total_emergencies": 1444979,
+    "mental_emergencies": 51742, 
+    "mental_emergencies_percentage": 3.58
+  },
+  "New South Wales": {
+    "total_emergencies": 2461636,
+    "mental_emergencies": 80867, 
+    "mental_emergencies_percentage": 3.29
+  },
+  "Tasmania": {
+    "total_emergencies": 161038,
+    "mental_emergencies": 5825, 
+    "mental_emergencies_percentage": 3.62
+  },
+  "Victoria": {
+    "total_emergencies": 1741127,
+    "mental_emergencies": 53630, 
+    "mental_emergencies_percentage": 3.08
+  },
+  "Western Australia": {
+    "total_emergencies": 807614,
+    "mental_emergencies": 32189, 
+    "mental_emergencies_percentage": 3.99
+  },
+  "South Australia": {
+    "total_emergencies": 500020,
+    "mental_emergencies": 23820, 
+    "mental_emergencies_percentage": 4.76
+  }
+}

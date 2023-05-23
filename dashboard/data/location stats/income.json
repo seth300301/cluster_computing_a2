@@ -1,0 +1,8 @@
+{
+  "Queensland": { "mean_income": 60837.5, "median_income": 48865.5 },
+  "New South Wales": { "mean_income": 64385.5, "median_income": 49231.5 },
+  "Tasmania": { "mean_income": 54368.0, "median_income": 45815.0 },
+  "Victoria": { "mean_income": 60175.0, "median_income": 47807.5 },
+  "Western Australia": { "mean_income": 64208.0, "median_income": 50559.0 },
+  "South Australia": { "mean_income": 56038.5, "median_income": 46777.0 }
+}

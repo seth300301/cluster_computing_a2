@@ -1,0 +1,32 @@
+{
+  "Queensland": {
+    "total_tweets": 519585,
+    "eng_tweets": 444511,
+    "eng_tweets_percentage": 85.55
+  },
+  "New South Wales": {
+    "total_tweets": 970055,
+    "eng_tweets": 814597,
+    "eng_tweets_percentage": 83.97
+  },
+  "Tasmania": {
+    "total_tweets": 68466,
+    "eng_tweets": 59169, 
+    "eng_tweets_percentage":86.42
+  },
+  "Victoria": {
+    "total_tweets": 868464,
+    "eng_tweets": 757374,
+    "eng_tweets_percentage": 87.21
+  },
+  "Western Australia": {
+    "total_tweets": 240574,
+    "eng_tweets": 205964,
+    "eng_tweets_percentage": 85.61
+  },
+  "South Australia": {
+    "total_tweets": 185379,
+    "eng_tweets": 164945,
+    "eng_tweets_percentage": 88.98
+  }
+}

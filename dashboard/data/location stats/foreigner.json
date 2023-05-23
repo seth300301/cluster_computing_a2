@@ -1,0 +1,32 @@
+{
+  "New South Wales": {
+    "local_people": 5098913,
+    "foreign_people": 2269090,
+    "foreign_people_percentage": 30.8
+  },
+  "Victoria": {
+    "local_people": 4224396,
+    "foreign_people": 1950420,
+    "foreign_people_percentage": 31.59
+  },
+  "Queensland": {
+    "local_people": 3670961,
+    "foreign_people": 1167384,
+    "foreign_people_percentage": 24.13
+  },
+  "Western Australia": {
+    "local_people": 1643848,
+    "foreign_people": 856047,
+    "foreign_people_percentage": 34.24
+  },
+  "South Australia": {
+    "local_people": 1263223,
+    "foreign_people": 426674,
+    "foreign_people_percentage": 25.25
+  },
+  "Tasmania": {
+    "local_people": 439834,
+    "foreign_people": 85508,
+    "foreign_people_percentage": 16.28
+  }
+}

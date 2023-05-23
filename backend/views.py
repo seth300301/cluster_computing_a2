@@ -3,6 +3,9 @@ import couchdb
 COUCHDB_SERVER='http://admin:password@172.26.136.171:5984/'
 server = couchdb.Server(COUCHDB_SERVER)
 
+def entities_toots():
+    toots = server['entities_mastodon'].view()
+
 def english_view():
     english_view = server['english_tweets'].view('filter/english_view', reduce=False)
 

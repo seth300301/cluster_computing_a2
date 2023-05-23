@@ -1,5 +1,6 @@
 .DS_Store
-data/
+data/twitter-huge.json
+data/twitter-huge.json.zip
 code/
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
