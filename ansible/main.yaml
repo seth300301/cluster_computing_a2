@@ -14,11 +14,13 @@
 - hosts: couchdb_instances
   vars_files:
     - vars/couchdb.yaml
+    - vars/mastodon.yaml
   gather_facts: true
 
   roles:
     - role: common
     - role: docker
+    - role: mastodon_harvester
     # - role: couchdb
     # - role: couch_cluster
 # set up webserver

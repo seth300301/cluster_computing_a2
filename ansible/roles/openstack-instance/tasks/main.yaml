@@ -40,7 +40,16 @@
   loop: "{{ os_instance.results }}"
   when: item.server is defined
 
+- name: Create index variable
+  set_fact:
+    index: "{{ idx }}"
+  with_items: "{{ groups['couchdb_instances'] }}"
+  loop_control:
+    loop_var: current_host
+    index_var: idx
 
+
+    
 
 # Create web instances
 - name: Create web instance

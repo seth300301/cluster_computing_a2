@@ -1,0 +1,29 @@
+---
+- name: Clone repository
+  git:
+    repo: "{{ repo_url }}"
+    dest: /path/to/destination
+
+- name: Move into harvester directory
+  become: true
+  shell: cd {{ mastodon_directory }}
+
+- name: Create config.yaml file
+  blockinfile:
+    path: ./config.yaml
+    block: |
+      couch_username: "{{ couchdb_username }}"
+      couch_password: "{{ couchdb_password }}"
+      ip: "{{ ansible_hostname }}"
+      server_url: "{{ mastodon_servers[hostvars[current_host].index|int].url }}"
+      access_token: "{{ mastodon_servers[hostvars[current_host].index|int].api_key }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    create: yes
+
+- name: Build Docker container
+  become: true
+  shell: docker build -t your_image_name .
+
+- name: Run Docker container
+  become: true
+  shell: docker run -d your_image_name

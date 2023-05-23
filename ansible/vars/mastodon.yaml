@@ -1,0 +1,12 @@
+# mastodon settings
+mastodon_servers:
+  - url: http://aus.social/
+    api_key: a
+  - url: http://tictoc.social/
+    api_key: b
+  - url: http://mastodon.social/
+    api_key: c
+
+# git repository settings
+repo_url: https://github.com/seth300301/cluster_computing_a2.git
+mastodon_directory: ~/cluster_computing_a2/harvester
