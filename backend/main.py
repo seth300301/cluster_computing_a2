@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
-
+from process_mastodon_latest import process_mastodon_latest
 from process_mastodon_data import process_mastodon
 from views import english_view, foreigner_view, income_view, mentalhealth_view, sentiment_view, weekly_rent, rent_tweets, tweet_shortages, entities_toots, hashtags_toots
 
@@ -21,6 +21,10 @@ async def mastodon_hashtags():
 @app.get("/mastodon_wordcloud")
 async def mastodon_wordcloud():
     return process_mastodon()
+
+@app.get("/mastodon_wordcloud_latest")
+async def mastodon_wordcloud_latest():
+    return process_mastodon_latest()
 
 @app.get("/twitter_wordcloud")
 async def twitter_wordcloud():
