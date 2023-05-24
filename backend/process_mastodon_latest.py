@@ -82,6 +82,6 @@ def process_mastodon_latest():
     return final_words
 
 if __name__ == '__main__':
-    s = process_mastodon()
+    s = process_mastodon_latest()
 
     print(s)
