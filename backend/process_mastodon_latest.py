@@ -6,7 +6,7 @@ import spacy
 import nltk
 from nltk.corpus import stopwords
 
-def process_mastodon():
+def process_mastodon_latest():
     nltk.download('punkt')
     nltk.download('wordnet')
     nlp = spacy.load("en_core_web_sm")
