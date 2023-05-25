@@ -3,12 +3,7 @@ availability_zone: melbourne-qh2-uom
 instance_image: bbaf16f8-2484-48d7-b455-42209cc4b8d2
 instance_key_name: shared-key
 instance_flavor: uom.mse.1c4g
-create_web: true
-
-# Volume
-volumes:
-  - vol_name: main-volume
-    vol_size: 100
+create_web: false
 
 # Security group
 security_groups:
@@ -44,14 +39,7 @@ security_groups:
     remote_ip_prefix: 0.0.0.0/0
 
 
-# Instance
+# Instance name
 couchdb_instances:
-  - name: t1
-  - name: t2
-  - name: t3
-  # - name: master
-  # - name: child1
-  # - name: child2
+  - name: extension
 
-web_instances:
-  - name: webserver

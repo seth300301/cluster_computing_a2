@@ -9,6 +9,15 @@
     repo: "{{ repo_url }}"
     dest: "{{ ansible_env.HOME }}/{{ repo_name }}"
 
+# try this fix if youre having docker build issues
+- name: reload daemon
+  become: true
+  shell: systemctl daemon-reload
+
+- name: restart docker
+  become: true
+  shell: systemctl restart docker
+
 # build shortage harvester container
 - name: copy template config.yaml file
   become: true

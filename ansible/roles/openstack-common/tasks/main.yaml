@@ -7,14 +7,14 @@
     state: latest
     update_cache: true
   when: ansible_distribution == "Ubuntu"
-# sudo apt-get update && sudo apt-get install python3-dev python3-setuptools python-pip
 
 - name: Update pip
   ansible.builtin.pip:
     name: ["pip", "openstacksdk"]
     state: latest
 
+
+# uncomment this task to use older version of openstacksdk
 - name: Install openstacksdk
   ansible.builtin.pip:
     name: ["openstacksdk==0.61.0"]
-# pip install --upgrade pip && pip install openstacksdk
