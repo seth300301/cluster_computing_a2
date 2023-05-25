@@ -22,62 +22,80 @@
   loop: "{{ os_instance.results }}"
   when: item.server is defined
 
-# comment this section out if not connected to unimelb network
-# - name: Wait for connection
-#   ansible.builtin.wait_for:
-#     host: "{{ item.server.addresses['qh2-uom-internal'][0].addr }}"
-#     port: 22
-#     timeout: 120
-#     search_regex: OpenSSH
-#   loop: "{{ os_instance.results }}"
-#   when: item.server is defined
-
 # Add hosts to Ansible in-memory inventory
 - name: Add host
   ansible.builtin.add_host:
     name: "{{ item.server.addresses['qh2-uom-internal'][0].addr }}"
-    groups: couchdb_instances
+    groups: couchdb
   loop: "{{ os_instance.results }}"
   when: item.server is defined
 
-- name: Create index variable
+# - name: Create index variable
+#   set_fact:
+#     index: "{{ idx }}"
+#   with_items: "{{ groups['couchdb_instances'] }}"
+#   loop_control:
+#     loop_var: current_host
+#     index_var: idx
+
+# - name: Register master
+#   add_host:
+#     name: "{{ couchdb_instances | first }}"
+#     groups: Master
+
+# - name: Register workers
+#   add_host: 
+#     name: '{{ item }}'
+#     groups: Workers
+#   loop: '{{ instance_ips[1:] }}'
+
+- ansible.builtin.debug:
+    msg: "banana: {{ groups['couchdb'] }} "
+
+- name: Set master
   set_fact:
-    index: "{{ idx }}"
-  with_items: "{{ groups['couchdb_instances'] }}"
-  loop_control:
-    loop_var: current_host
-    index_var: idx
+    master: "{{ groups['couchdb'][0] }}"
+
+- name: Set child1
+  set_fact:
+    child1: "{{ groups['couchdb'][1] }}"
+
+- name: Set child2
+  set_fact:
+    child2: "{{ groups['couchdb'][2] }}"
+
 
 
     
 
 # Create web instances
-- name: Create web instance
-  openstack.cloud.server:
-    name: "{{ item.name }}"
-    # auto_floating_ip: false
-    availability_zone: "{{ availability_zone }}"
-    flavor: "{{ instance_flavor }}"
-    image: "{{ instance_image }}"
-    key_name: "{{ instance_key_name }}"
-    # network: "{{ instance_network }}"
-    security_groups: "{{ sg_names }}"
-    timeout: 600
-    # volumes: "{{ item.volumes }}"
-    state: present
-    wait: true
-  loop: "{{ couchdb_instances }}"
-  register: web_instance
+# - name: Create web instance
+#   openstack.cloud.server:
+#     name: "{{ item.name }}"
+#     # auto_floating_ip: false
+#     availability_zone: "{{ availability_zone }}"
+#     flavor: "{{ instance_flavor }}"
+#     image: "{{ instance_image }}"
+#     key_name: "{{ instance_key_name }}"
+#     # network: "{{ instance_network }}"
+#     security_groups: "{{ sg_names }}"
+#     timeout: 600
+#     # volumes: "{{ item.volumes }}"
+#     state: present
+#     wait: true
+#   loop: "{{ web_instances }}"
+#   register: web_instance
 
-- ansible.builtin.debug:
-    msg: "Web instance {{ item.server.name }} has been created. IP address is {{ item.server.addresses['qh2-uom-internal'][0].addr }}"
-  loop: "{{ web_instance.results }}"
-  when: item.server is defined
+# - ansible.builtin.debug:
+#     msg: "Web instance {{ item.server.name }} has been created. IP address is {{ item.server.addresses['qh2-uom-internal'][0].addr }}"
+#   loop: "{{ web_instance.results }}"
+#   when: item.server is defined
 
-  # Add hosts to Ansible in-memory inventory
-- name: Add host
-  ansible.builtin.add_host:
-    name: "{{ item.server.addresses['qh2-uom-internal'][0].addr }}"
-    groups: web_instances
-  loop: "{{ web_instance.results }}"
-  when: item.server is defined
+#   # Add hosts to Ansible in-memory inventory
+# - name: Add host
+#   ansible.builtin.add_host:
+#     name: "{{ item.server.addresses['qh2-uom-internal'][0].addr }}"
+#     groups: web_instances
+#   loop: "{{ web_instance.results }}"
+#   when: item.server is defined
+

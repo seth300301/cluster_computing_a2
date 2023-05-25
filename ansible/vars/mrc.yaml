@@ -45,7 +45,10 @@ security_groups:
 
 # Instance
 couchdb_instances:
-  - name: jason-test
+  - name: t1
+  - name: t2
+  - name: t3
+  # - name: jason-test
   # - name: master
   #   volumes: ["main-volume"]
   # - name: child1

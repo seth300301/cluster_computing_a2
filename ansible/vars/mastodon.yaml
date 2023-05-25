@@ -1,12 +1,21 @@
 # mastodon settings
-mastodon_servers:
-  - url: http://aus.social/
-    api_key: a
-  - url: http://tictoc.social/
-    api_key: b
-  - url: http://mastodon.social/
-    api_key: c
+prod: false
+
+shortage_harvester:
+  url: ['https://aus.social/', 'https://tictoc.social/', 'https://mastodon.au/']
+  api_key: ['z7vRVVkxu0hmQBuwTHni1GDiAIhDHUwLscCn6qWtISg', '85MJprenneSpkiqGYQtHayL_xGLtOHeL2wMfln6Au-8', '6-0d4gKufAHdv8BCCZ3-W4xtWqrRYMz8T9LQv2Po7po']
+  db_ip:  172.26.136.171
+
+entities_harvester:
+  url: ['https://aus.social/', 'https://tictoc.social/', 'https://mastodon.au/']
+  api_key: ['E7AA9N-OQ9wfXtuLE_uXbHx5TUaV1qTs_8BAvD5xwwU', 'V-qqfNRgCH8HTrpZXY7OjeWkoWLu3kuHEqK3r0ZmFCM', 'dAuwSejfTNNd4Q8eozJoYcnqGL1PUe13vPlaWnH0yP8']
+  db_ip: 172.26.136.171
+
+hashtag_harvester:
+  url: ['https://aus.social/', 'https://tictoc.social/', 'https://mastodon.au/']
+  api_key: ['SYob6m-B4LTMgFa2NXqvKrklYO3sj1Nin3VuPy4Nl20', 'jm1gxgtKr5KaKbxIRpCataaRCmsUMcjtrCaijoBG3U4', 'mlVzXiCF-GBM5-igXjUr0yLrHqagmFaQFi-IacvaOPE']
+  db_ip: 172.26.136.171
 
 # git repository settings
 repo_url: https://github.com/seth300301/cluster_computing_a2.git
-mastodon_directory: ~/cluster_computing_a2
+repo_name: cluster_computing_a2

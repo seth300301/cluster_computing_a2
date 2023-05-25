@@ -4,3 +4,9 @@ couch:
   password: password
   secret: group83
   cookie: group83
+  num_nodes: 3
+
+
+master: 172.26.136.21
+child1: 172.26.134.87
+child2: 172.26.129.50
