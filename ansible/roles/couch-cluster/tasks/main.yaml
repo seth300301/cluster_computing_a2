@@ -1,0 +1,106 @@
+---
+# - ansible.builtin.debug:
+#     msg: "{{ item }}"
+#   loop: "{{ groups['couchdb'] }}"
+
+
+- name: Enable cluster setup
+  become: true
+  uri:
+    url: "http://{{ master }}:5984/_cluster_setup"
+    method: POST
+    body_format: json
+    force_basic_auth: true
+    user: "{{ couch.username }}"
+    password: "{{ couch.password }}"
+    status_code: 200, 201, 409
+    headers:
+      Content-Type: "application/json"
+    body: >
+      {
+        "action": "enable_cluster",
+        "bind_address": "0.0.0.0",
+        "username": "{{ couch.username }}",
+        "password": "{{ couch.password }}",
+        "port": "5984",
+        "remote_node": "{{ item }}",
+        "node_count": "{{ couch.num_nodes }}",
+        "remote_current_user": "{{ couch.username }}",
+        "remote_current_password": "{{ couch.password }}"
+      }
+  when: item != master
+  loop: "{{ groups['couchdb'] }}"
+
+- name: Add node to cluster (if not master)
+  become: true
+  uri:
+    url: "http://{{ master }}:5984/_cluster_setup"
+    method: POST
+    body_format: json
+    force_basic_auth: true
+    user: "{{ couch.username }}"
+    password: "{{ couch.password }}"
+    status_code: 200, 201, 409
+    headers:
+      Content-Type: "application/json"
+    body: >
+      {
+        "action": "add_node",
+        "host": "{{ item }}",
+        "port": "5984",
+        "username": "{{ couch.username }}",
+        "password": "{{ couch.password }}"
+      }
+  when: item != master
+  loop: "{{ groups['couchdb'] }}"
+
+- name: random GET request thats surprisingly important
+  become: true
+  uri:
+    url: "http://{{ master }}:5984/"
+    method: GET
+    force_basic_auth: true
+    user: "{{ couch.username }}"
+    password: "{{ couch.password }}"
+    status_code: 200, 201, 409
+
+
+- name: Finish cluster setup
+  become: true
+  uri:
+    url: "http://{{ master }}:5984/_cluster_setup"
+    method: POST
+    body_format: json
+    force_basic_auth: true
+    user: "{{ couch.username }}"
+    password: "{{ couch.password }}"
+    status_code: 200, 201, 409
+    headers:
+      Content-Type: "application/json"
+    body: >
+      {
+        "action": "finish_cluster"
+      }
+
+- name: Check cluster setup
+  become: true
+  uri:
+    url: "http://{{ master }}:5984/_cluster_setup"
+    method: GET
+    force_basic_auth: true
+    user: "{{ couch.username }}"
+    password: "{{ couch.password }}"
+    status_code: 200, 201, 409
+
+
+- name: Check membership
+  become: true
+  uri:
+    url: "http://{{ master }}:5984/_membership"
+    method: GET
+    force_basic_auth: true
+    user: "{{ couch.username }}"
+    password: "{{ couch.password }}"
+    status_code: 200, 201, 409
+
+

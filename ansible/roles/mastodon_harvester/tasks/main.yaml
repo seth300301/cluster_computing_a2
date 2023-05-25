@@ -1,45 +1,73 @@
 ---
-# - name: Clone repository
-#   git:
-#     repo: "{{ repo_url }}"
-#     dest: /path/to/destination
+# clone git repo
+- name: Clone repository
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ ansible_env.HOME }}/{{ repo_name }}"
 
-# - name: Move into harvester directory
-#   become: true
-#   shell: cd {{ mastodon_directory }}
+# build shortage harvester container
+- name: copy template config.yaml file
+  become: true
+  ansible.builtin.template:
+    src: templates/config.yaml.j2
+    dest: "{{ ansible_env.HOME }}/{{ repo_name }}/mastodon_harvesters/shortage_harvester/config.yaml"
+  vars:
+    url: "{{ shortage_harvester.url[  item[0]  ] }}"
+    api_key: "{{ shortage_harvester.api_key[  item[0]  ] }}"
+    ip: "{{ prod | ternary( ansible_hostname , shortage_harvester.db_ip[  item[0]  ] ) }}"
+  with_indexed_items: "{{ ansible_play_batch }}"
+  when: item[1] == ansible_host
 
-# - name: Create config.yaml file
-#   blockinfile:
-#     path: ./config.yaml
-#     block: |
-#       couch_username: "{{ couchdb_username }}"
-#       couch_password: "{{ couchdb_password }}"
-#       ip: "{{ ansible_hostname }}"
-#       server_url: "{{ mastodon_servers[hostvars[current_host].index|int].url }}"
-#       access_token: "{{ mastodon_servers[hostvars[current_host].index|int].api_key }}"
-#     marker: "# {mark} ANSIBLE MANAGED BLOCK"
-#     create: yes
+- name: Build Docker image
+  become: true
+  shell: docker build -t shortage_harvester {{ ansible_env.HOME }}/{{ repo_name }}/mastodon_harvesters/shortage_harvester
 
-# - name: Build Docker container
-#   become: true
-#   shell: docker build -t your_image_name .
+# build entities harvester container
+- name: copy template config.yaml file
+  become: true
+  ansible.builtin.template:
+    src: templates/config.yaml.j2
+    dest: "{{ ansible_env.HOME }}/{{ repo_name }}/mastodon_harvesters/entities_harvester/config.yaml"
+  vars:
+    url: "{{ entities_harvester.url[  item[0]  ] }}"
+    api_key: "{{ entities_harvester.api_key[  item[0]  ] }}"
+    ip: "{{ prod | ternary( ansible_hostname , entities_harvester.db_ip[  item[0]  ] ) }}"
 
-# - name: Run Docker container
-#   become: true
-#   shell: docker run -d your_image_name
+  with_indexed_items: "{{ ansible_play_batch }}"
+  when: item[1] == ansible_host
 
-- name: pass git key to server
-  copy: 
-    src=id_rsa
-    dest=/home/ubuntu/.ssh/git_key 
-    owner=ubuntu 
-    mode=0644 
-    force=no
-    
-- name: clone repo
-  git: 
-    repo=git@github.com:seth300301/cluster_computing_a2.git
-    dest=~/cluster_computing_a2
-    clone=yes
-    accept_hostkey=yes
-    key_file=/home/ubuntu/.ssh/git_key
+- name: Build Docker image
+  become: true
+  shell: docker build -t entities_harvester {{ ansible_env.HOME }}/{{ repo_name }}/mastodon_harvesters/entities_harvester
+
+# build hashtag harvester container
+- name: copy template config.yaml file
+  become: true
+  ansible.builtin.template:
+    src: templates/config.yaml.j2
+    dest: "{{ ansible_env.HOME }}/{{ repo_name }}/mastodon_harvesters/hashtag_harvester/config.yaml"
+  vars:
+    url: "{{ hashtag_harvester.url[  item[0]  ] }}"
+    api_key: "{{ hashtag_harvester.api_key[  item[0]  ] }}"
+    ip: "{{ prod | ternary( ansible_hostname , hashtag_harvester.db_ip[  item[0]  ] ) }}"
+
+  with_indexed_items: "{{ ansible_play_batch }}"
+  when: item[1] == ansible_host
+
+- name: Build Docker image
+  become: true
+  shell: docker build -t hashtag_harvester {{ ansible_env.HOME }}/{{ repo_name }}/mastodon_harvesters/hashtag_harvester
+
+# run all harvesters
+
+- name: Run shortage_harvester container
+  become: true
+  shell: docker run -d shortage_harvester
+
+- name: Run entity harvester container
+  become: true
+  shell: docker run -d entities_harvester
+
+- name: Run hashtag harvester container
+  become: true
+  shell: docker run -d hashtag_harvester

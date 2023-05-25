@@ -1,0 +1,30 @@
+---
+- name: Clone repository
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ ansible_env.HOME }}/{{ repo_name }}"
+
+# build containers
+- name: Build frontend image
+  become: true
+  shell: docker build -t frontend {{ ansible_env.HOME }}/{{ repo_name }}/dashboard
+
+- name: Build backend image
+  become: true
+  shell: docker build -t backend {{ ansible_env.HOME }}/{{ repo_name }}/backend
+
+# run containers 
+- name: Create network
+  become: true
+  shell: docker network create mynetwork
+
+- name: Run backend container
+  become: true
+  shell: docker run --name backend --network mynetwork backend
+
+- name: Run frontend container
+  become: true
+  shell: sudo docker run --name frontend --network mynetwork -p 8501:8501/tcp frontend
+
+
+
