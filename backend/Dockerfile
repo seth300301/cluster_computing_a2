@@ -1,8 +1,9 @@
 FROM python:3.10.6
 
-ADD main.py .
-ADD process_mastodon_data.py .
-ADD views.py .
+COPY main.py .
+COPY process_mastodon_data.py .
+COPY views.py .
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 

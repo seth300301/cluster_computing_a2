@@ -27,8 +27,8 @@ if (graph_type == 'Bar Chart'):
 
         entities['Entity'] = entities['Entity'] + " " + entities['Entity Type']
     else:
-        entities = pd.DataFrame(requests.get('http://localhost:8000/mastodon_entities').json())
-        hashtags = pd.DataFrame(requests.get('http://localhost:8000/mastodon_hashtags').json())
+        entities = pd.DataFrame(requests.get('http://backend:8000/mastodon_entities').json())
+        hashtags = pd.DataFrame(requests.get('http://backend:8000/mastodon_hashtags').json())
 
         entities['Entity'] = entities['Entity'] + " " + entities['Entity Type']
         entities = entities.sort_values('Number of Tweets', ascending=False)
@@ -77,10 +77,10 @@ else:
         # Load the contents of the file as JSON data
             hashtags = {item['Hashtag']: item['Number of Tweets'] for item in json.load(file)}
     else:
-        entities = requests.get('http://localhost:8000/mastodon_entities').json()
+        entities = requests.get('http://backend:8000/mastodon_entities').json()
         entities = {item['Entity']: item['Number of Tweets'] for item in entities}
 
-        hashtags = requests.get('http://localhost:8000/mastodon_hashtags').json()
+        hashtags = requests.get('http://backend:8000/mastodon_hashtags').json()
         hashtags = {item['Hashtag']: item['Number of Tweets'] for item in hashtags}
 
     wordcloud_entitiies = WordCloud(colormap='gist_rainbow', width=600, height=400)

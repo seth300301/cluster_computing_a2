@@ -14,8 +14,8 @@ st.set_page_config(
 
 @st.cache
 def initialise_data():
-    shortage_tweets = requests.get('http://localhost:8000/twitter_wordcloud').json()
-    shortage_toots = requests.get('http://localhost:8000/mastodon_wordcloud').json()
+    shortage_tweets = requests.get('http://backend:8000/twitter_wordcloud').json()
+    shortage_toots = requests.get('http://backend:8000/mastodon_wordcloud').json()
 
     return shortage_tweets, shortage_toots
 

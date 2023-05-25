@@ -17,13 +17,13 @@ def initialise_data():
     # server = couchdb.Server(COUCHDB_SERVER)
 
     gdf = gpd.read_file("dashboard/data/states.geojson")
-    english = pd.DataFrame(requests.get('http://localhost:8000/english_view').json())
-    foreign = pd.DataFrame(requests.get('http://localhost:8000/foreigner_view').json())
-    income = pd.DataFrame(requests.get('http://localhost:8000/income_view').json())
-    mental = pd.DataFrame(requests.get('http://localhost:8000/mentalhealth_view').json())
-    sentiment = pd.DataFrame(requests.get('http://localhost:8000/sentiment_view').json())
-    rent = pd.DataFrame(requests.get('http://localhost:8000/weekly_rent').json())
-    rent_tweets = pd.DataFrame(requests.get('http://localhost:8000/rent_tweets').json())
+    english = pd.DataFrame(requests.get('http://backend:8000/english_view').json())
+    foreign = pd.DataFrame(requests.get('http://backend:8000/foreigner_view').json())
+    income = pd.DataFrame(requests.get('http://backend:8000/income_view').json())
+    mental = pd.DataFrame(requests.get('http://backend:8000/mentalhealth_view').json())
+    sentiment = pd.DataFrame(requests.get('http://backend:8000/sentiment_view').json())
+    rent = pd.DataFrame(requests.get('http://backend:8000/weekly_rent').json())
+    rent_tweets = pd.DataFrame(requests.get('http://backend:8000/rent_tweets').json())
 
     dfs = [english, foreign, income, mental, sentiment, rent, rent_tweets]
     new_gdf = gdf.copy()
