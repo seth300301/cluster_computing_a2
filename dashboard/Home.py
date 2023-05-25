@@ -34,11 +34,11 @@ st.markdown("<p class='centerized-text large'>Group 83 Members</p>", unsafe_allo
 st.markdown(
     """
     <p class='centerized-text'>
-    <span class='text'>Seth Ng - 1067992</span> <br>
-    <span class='text'>Li Sean Wong - 1074679</span> <br>
-    <span class='text'>Jason Mack - 993060</span> <br>
     <span class='text'>Chayanit Jaroonsophonsak - 1025399</span> <br>
+    <span class='text'>Jason Mack - 993060</span> <br>
+    <span class='text'>Li Sean Wong - 1074679</span> <br>
     <span class='text'>Lu Chen - 1238973</span> <br>
+    <span class='text'>Seth Ng - 1067992</span> <br>
     </p>
     """
     ,unsafe_allow_html=True
