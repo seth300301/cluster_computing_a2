@@ -1,5 +1,9 @@
 ---
 # clone git repo
+- name: Remove previous folder
+  become: true
+  command: "rm -rf {{ repo_name }}"
+
 - name: Clone repository
   git:
     repo: "{{ repo_url }}"
@@ -18,7 +22,7 @@
   with_indexed_items: "{{ ansible_play_batch }}"
   when: item[1] == ansible_host
 
-- name: Build Docker image
+- name: Build shortage_harvester image
   become: true
   shell: docker build -t shortage_harvester {{ ansible_env.HOME }}/{{ repo_name }}/mastodon_harvesters/shortage_harvester
 
@@ -36,7 +40,7 @@
   with_indexed_items: "{{ ansible_play_batch }}"
   when: item[1] == ansible_host
 
-- name: Build Docker image
+- name: Build entities_harvester image
   become: true
   shell: docker build -t entities_harvester {{ ansible_env.HOME }}/{{ repo_name }}/mastodon_harvesters/entities_harvester
 
@@ -54,20 +58,19 @@
   with_indexed_items: "{{ ansible_play_batch }}"
   when: item[1] == ansible_host
 
-- name: Build Docker image
+- name: Build hashtag_harvester image
   become: true
   shell: docker build -t hashtag_harvester {{ ansible_env.HOME }}/{{ repo_name }}/mastodon_harvesters/hashtag_harvester
 
 # run all harvesters
-
 - name: Run shortage_harvester container
   become: true
-  shell: docker run -d shortage_harvester
+  shell: docker run -p 80:80 -d shortage_harvester
 
 - name: Run entity harvester container
   become: true
-  shell: docker run -d entities_harvester
+  shell: docker run -p 80:80 -d entities_harvester
 
 - name: Run hashtag harvester container
   become: true
-  shell: docker run -d hashtag_harvester
+  shell: docker run -p 80:80 -d hashtag_harvester

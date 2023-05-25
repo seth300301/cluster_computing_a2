@@ -1,4 +1,9 @@
 ---
+# clone git repo
+- name: Remove previous folder
+  become: true
+  command: "rm -rf {{ repo_name }}"
+
 - name: Clone repository
   git:
     repo: "{{ repo_url }}"
