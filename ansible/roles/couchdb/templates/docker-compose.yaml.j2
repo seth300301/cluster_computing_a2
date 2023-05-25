@@ -17,5 +17,6 @@ services:
       - ERL_FLAGS="-setcookie \"{{ couch.cookie }}\" -name \"couchdb@{{ ansible_host }}\""\
     volumes:
       - ./dbdata:/opt/couchdb/data
+      - ./vm.args:/opt/couchdb/etc/vm.args
     # command: "-setcookie {{ couch.cookie }}"
     container_name: couchdb
