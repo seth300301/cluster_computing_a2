@@ -74,12 +74,15 @@
 # run all harvesters
 - name: Run shortage_harvester container
   become: true
-  shell: docker run -p 80:80 -d shortage_harvester
+  shell: docker run -d hashtag_harvester
+  # shell: docker run -p 80:80 -d shortage_harvester
 
 - name: Run entity harvester container
   become: true
-  shell: docker run -p 80:80 -d entities_harvester
+  shell: docker run -d hashtag_harvester
+  # shell: docker run -p 80:80 -d entities_harvester
 
 - name: Run hashtag harvester container
   become: true
-  shell: docker run -p 80:80 -d hashtag_harvester
+  shell: docker run -d hashtag_harvester
+  # shell: docker run -p 80:80 -d hashtag_harvester
