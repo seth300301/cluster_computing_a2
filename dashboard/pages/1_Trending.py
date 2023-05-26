@@ -31,21 +31,21 @@ if (graph_type == 'Bar Chart'):
         hashtags = pd.DataFrame(requests.get('http://backend:8000/mastodon_hashtags').json())
 
         entities['Entity'] = entities['Entity'] + " " + entities['Entity Type']
-        entities = entities.sort_values('Number of Tweets', ascending=False)
-        hashtags = hashtags.sort_values('Number of Tweets', ascending=False)
+        entities = entities.sort_values('Number of Tweets', ascending=False, ignore_index=True)
+        hashtags = hashtags.sort_values('Number of Tweets', ascending=False, ignore_index=True)
 
     figs = []
 
-    if (data_type == 'Tweets'):
-        ent_data = entities.head(101)[1:]
-        hash_data = hashtags.head(101)[1:]
-        ent_title = "#2 - 100 Entities " + str(data_type)[:-1] + "ed"
-        hash_title = "#2 - 100 Hashtags " + str(data_type)[:-1] + "ed"
-    else:
-        ent_data = entities.head(101)
-        hash_data = hashtags.head(101)
-        ent_title = "Top 100 Entities " + str(data_type)[:-1] + "ed"
-        hash_title = "Top 100 Hashtags " + str(data_type)[:-1] + "ed"
+    #if (data_type == 'Tweets'):
+    ent_data = entities.head(101)[1:]
+    hash_data = hashtags.head(101)[1:]
+    ent_title = "#2 - 100 Entities " + str(data_type)[:-1] + "ed"
+    hash_title = "#2 - 100 Hashtags " + str(data_type)[:-1] + "ed"
+    # else:
+    #     ent_data = entities.head(101)
+    #     hash_data = hashtags.head(101)
+    #     ent_title = "Top 100 Entities " + str(data_type)[:-1] + "ed"
+    #     hash_title = "Top 100 Hashtags " + str(data_type)[:-1] + "ed"
 
 
     ent_fig = px.bar(pd.DataFrame(ent_data), x="Entity", y="Number of Tweets", title=ent_title)
@@ -59,12 +59,12 @@ if (graph_type == 'Bar Chart'):
         )
 
     st.write("### Entity Count in " + str(data_type))
-    if (data_type == 'Tweets'):
-        st.write("_#1 Entity " + str(data_type)[:-1] + "ed: " + str(entities['Entity'][0]) + " - " + str(entities['Number of Tweets'][0]) + "_")
+    #if (data_type == 'Tweets'):
+    st.write("_#1 Entity " + str(data_type)[:-1] + "ed: " + str(entities['Entity'][0]) + " - " + str(entities['Number of Tweets'][0]) + "_")
     st.plotly_chart(figs[0], use_container_width=True)
     st.write("### Hashtag Count in " + str(data_type))
-    if (data_type == 'Tweets'):
-        st.write("_#1 Hashtag " + str(data_type)[:-1] + "ed: " + str(hashtags['Hashtag'][0]) + " - " + str(hashtags['Number of Tweets'][0]) + "_")
+    #if (data_type == 'Tweets'):
+    st.write("_#1 Hashtag " + str(data_type)[:-1] + "ed: " + str(hashtags['Hashtag'][0]) + " - " + str(hashtags['Number of Tweets'][0]) + "_")
     st.plotly_chart(figs[1], use_container_width=True)
 
 else:

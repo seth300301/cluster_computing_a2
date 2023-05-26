@@ -13,7 +13,7 @@ services:
       - COUCHDB_PASSWORD={{ couch.password }}
       # - COUCHDB_DATABASES=_replicator,_users,_global_changes
       - NODENAME={{ ansible_host }}
-      # - COUCHDB_SECRET= {{ couch.secret }}
+      - COUCHDB_SECRET= {{ couch.secret }}
       - ERL_FLAGS="-setcookie \"{{ couch.cookie }}\" -name \"couchdb@{{ ansible_host }}\""\
     volumes:
       - ./dbdata:/opt/couchdb/data
