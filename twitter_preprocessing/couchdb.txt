@@ -1,0 +1,32 @@
+curl -XPUT "http://admin:password@172.26.136.171:5984/rent_tweets"
+
+
+ curl -XPOST "http://admin:password@172.26.136.171:5984/rent_tweets/_bulk_docs"\
+   --header "Content-Type: application/json" \
+   --data @suburbresrealdb.json
+
+
+curl -X PUT http://admin:password@172.26.136.171:5984/rent_tweets/_design/filterlocation  -H "Content-Type: application/json" -d '{
+  "views": {
+    "location_view": {
+      "map": "function(doc) { let state=\"notaus\"; if ( doc.city.indexOf(\"Melbourne\") !== -1  || doc.city.indexOf(\"Victoria\") !== -1 || doc.city.indexOf(\"Box Hill\") !== -1 || doc.city.indexOf(\"Bendigo\") !== -1 ) { state =\"Victoria\";} else if( doc.city.indexOf(\"New South Wales\") !== -1 || doc.city.indexOf(\"Sydney\") !== -1 ) {state =\"New South Wales\";} else if( doc.city.indexOf(\"Brisbane\") !== -1 || doc.city.indexOf(\"Queensland\") !== -1 || doc.city.indexOf(\"Gold Coast\") !== -1 ) {state =\"Queensland\";} else if( doc.city.indexOf(\"Adelaide\") !== -1 ||  doc.city.indexOf(\"South Australia\") !== -1 ) {state =\"South Australia\";} else if( doc.city.indexOf(\"Hobart\") !== -1 || doc.city.indexOf(\"Tasmania\") !== -1 ) {state =\"Tasmania\";} else if( doc.city.indexOf(\"Western Australia\") !== -1 || doc.city.indexOf(\"Perth\") !== -1 ) {state =\"Western Australia\";} emit(state,1); }",
+      "reduce": "_count"
+    }
+  }
+}'
+
+curl -XPUT "http://admin:password@172.26.136.171:5984/rent_sudo"
+
+
+ curl -XPOST "http://admin:password@172.26.136.171:5984/rent_sudo/_bulk_docs"\
+   --header "Content-Type: application/json" \
+   --data @rentsudodb.json
+
+curl -X PUT http://admin:password@172.26.136.171:5984/rent_sudo/_design/filterrent  -H "Content-Type: application/json" -d '{
+  "views": {
+    "rent_view": {
+      "map": "function(doc) {  emit( [doc.year, doc.state], doc.rent); }",
+      "reduce": "_sum"
+    }
+  }
+}'

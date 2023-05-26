@@ -8,9 +8,11 @@
 5. Seth Ng - 1067992
 
 ### Topics of Interest:
-1. Trends in Australian Tweets and Toots
-2. Rent and Shortages
-3. Language and Sentiment Analysis
+1. Analysis of Trending Entities and Hashtags
+2. Twitter Sentiment Analysis Between States
+3. Twitter Language Analysis Between States
+4. Comparative Analysis of Shortage Complaints
+5. Analysis of High Rent Related Tweets
 
 ### Useful Links:
 1. [Melbourne Research Cloud](https://dashboard.cloud.unimelb.edu.au/project/)
